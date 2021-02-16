@@ -17,9 +17,7 @@ let workerBlob = createBlob([__inline('../lib/worker.js')], {
 // Props that are allowed to change dynamicly
 const propsKeys = ['delay', 'legacyMode', 'facingMode']
 
-module.exports = class Reader extends (
-    Component
-) {
+module.exports = class Reader extends Component {
     static propTypes = {
         onScan: PropTypes.func.isRequired,
         onError: PropTypes.func.isRequired,
@@ -289,7 +287,7 @@ module.exports = class Reader extends (
                 // Send data to web-worker
                 this.worker.postMessage(imageData)
             } catch (err) {
-                onError(err)
+                console.error('Error while processing scanner data', err)
             }
         } else {
             // Preview not ready -> check later
